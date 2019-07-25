@@ -1,4 +1,4 @@
-package lib_rpc_service
+package rpcservice
 
 import (
 	"flag"
@@ -16,13 +16,13 @@ import (
 	"github.com/micro/go-micro/transport/http"
 	"github.com/micro/go-plugins/client/selector/label"
 	"github.com/micro/go-plugins/registry/etcdv3"
+	"github.com/micro/go-plugins/registry/kubernetes"
 	"github.com/micro/go-plugins/transport/nats"
 	"github.com/micro/go-plugins/transport/rabbitmq"
 	"github.com/micro/go-plugins/transport/tcp"
 	"github.com/micro/go-plugins/transport/utp"
 	"github.com/micro/go-plugins/wrapper/monitoring/prometheus"
-	"go-micro/golib/lib_config"
-	"github.com/micro/go-plugins/registry/kubernetes"
+	"go-micro/golib/lib/lib_config"
 	"log"
 	"os"
 	"time"

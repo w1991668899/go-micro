@@ -1,0 +1,24 @@
+log:
+  level: 5
+  output:
+  path:
+  sentry_dsn:
+  extra_content:
+
+http:
+  host: ":9991"
+  rate_per_second: 2000
+  time_out: 20
+
+micro:
+  service_name: "rpc_server_demo"
+  etcd_addrs:
+    - "127.0.0.1:12379"
+  service_version:
+  service_addr:
+  transport:
+  selector:
+  consul_addrs:
+  k8s_addrs:
+  nats_addrs:
+

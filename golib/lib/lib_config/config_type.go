@@ -15,7 +15,7 @@ type ConfMysql struct {
 	LogType     string `yaml:"log_type"`
 }
 
-// rpc 服务配置
+// rpc_api 服务配置
 type ConfMicroRpcService struct {
 	ServiceName    string   `yaml:"service_name"`
 	ServiceVersion string   `yaml:"service_version"`
@@ -37,16 +37,23 @@ type ConfLog struct {
 	ExtraContent string `yaml:"extra_content"`
 }
 
-//// redis的配置
-//type ConfRedis struct {
-//	Host        string `yaml:"host"`
-//	Port        uint32 `yaml:"port"`
-//	Auth        string `yaml:"auth"`
-//	PoolSize    int    `yaml:"pool_size"`
-//	IdleTimeout int    `yaml:"idle_timeout"`
-//	DB          int    `yaml:"db"`
-//}
-//
+// redis的配置
+type ConfRedis struct {
+	Host        string `yaml:"host"`
+	Port        uint32 `yaml:"port"`
+	Auth        string `yaml:"auth"`
+	PoolSize    int    `yaml:"pool_size"`
+	IdleTimeout int    `yaml:"idle_timeout"`
+	DB          int    `yaml:"db"`
+}
+
+// http 配置
+type ConfHttp struct {
+	Host          string `yaml:"host"`
+	RatePerSecond int64  `yaml:"rate_per_second"`
+	Timeout       int64  `yaml:"time_out"`
+}
+
 //// redis cluster 配置
 //type ConfClusterRedis struct {
 //	Addrs              []string `yaml:"addrs"`
@@ -67,7 +74,7 @@ type ConfLog struct {
 //
 //// 请求地址
 //type ConfAddress struct {
-//	Protocol string `yaml:"protocol"`
+//	Protocol string `yaml:"protocol.md"`
 //	Host     string `yaml:"host"`
 //	Port     uint32 `yaml:"port"`
 //	Path     string `yaml:"path"`
@@ -86,13 +93,8 @@ type ConfLog struct {
 //	AMQPAddress string `yaml:"amqp_addr"`
 //}
 //
-//// http 配置
-//type ConfHttp struct {
-//	Host          string `yaml:"host"`
-//	RatePerSecond int64  `yaml:"rate_per_second"`
-//	Timeout       int64  `yaml:"time_out"`
-//}
-//
+
+
 //type ConfUrl struct {
 //	Url string `yaml:"url"`
 //}

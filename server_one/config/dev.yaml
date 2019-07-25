@@ -1,11 +1,23 @@
+log:
+  level: 5
+  output:
+  path:
+  sentry_dsn:
+  extra_content:
+
 db:
   db_name: "yibai"
   username: "root"
   password: "wentao"
   host: "127.0.0.1"
   port: 3306
-  enable_log: true
+  max_idle: 100
+  max_conn: 1000
+  max_life_time: 30
   auto_migrate: false
+  enable_log: true
+  log_type:
+
 
 micro:
   service_name: "rpc_server_demo"

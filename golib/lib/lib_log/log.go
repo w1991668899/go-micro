@@ -4,14 +4,12 @@ import (
 	"fmt"
 	"github.com/prometheus/common/log"
 	"github.com/sirupsen/logrus"
-	"go-micro/golib/lib_config"
+	"go-micro/golib/lib/lib_config"
 	"go-micro/golib/toolkit/tool_net"
 	"os"
 	"strings"
 	"time"
 )
-
-var logger *logrus.Logger
 
 func InitLog(conf lib_config.ConfLog) *logrus.Logger{
 	logger := logrus.New()
@@ -35,7 +33,7 @@ func logName(path string, ip string, time time.Time, extraContent string) string
 	//replace all dots
 	path = strings.Replace(path, ".", "_", -1)
 	ip = strings.Replace(ip, ".", "_", -1)
-	if "" != extraContent {
+	if extraContent != "" {
 		return fmt.Sprintf("%s.%04d%02d%02d.%s.%s.log", path, year, int(month), day, ip, extraContent)
 	} else {
 		return fmt.Sprintf("%s.%04d%02d%02d.%s.log", path, year, int(month), day, ip)
