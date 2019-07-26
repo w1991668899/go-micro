@@ -6,19 +6,22 @@ log:
   extra_content:
 
 http:
-  host: ":9991"
+  host: "127.0.0.1:9991"
   rate_per_second: 2000
   time_out: 20
 
 micro:
-  service_name: "rpc_server_demo"
   etcd_addrs:
-    - "127.0.0.1:12379"
-  service_version:
-  service_addr:
-  transport:
-  selector:
-  consul_addrs:
-  k8s_addrs:
-  nats_addrs:
+    - "127.0.0.1:2379"
+
+open_tracing:
+  disable: false
+  service_name: "api_gateway"
+  agent_addr: "127.0.0.1:6831"
+
+metrics:
+  diable: false
+  namespace: wbfex
+  subsystem: apigateway
+  metrics_path: "/metrics"
 

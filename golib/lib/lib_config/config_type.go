@@ -28,7 +28,7 @@ type ConfMicroRpcService struct {
 	NatsAddrSli    []string `yaml:"nats_addrs"`
 }
 
-// log
+// tool_log
 type ConfLog struct {
 	Level        uint32 `yaml:"level"`
 	Path         string `yaml:"path"`

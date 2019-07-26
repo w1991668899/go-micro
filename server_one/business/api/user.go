@@ -2,12 +2,14 @@ package api
 
 import (
 	"context"
-	pbuser "go-micro/golib/protoc/server_one"
+	"fmt"
+	pbserverone "go-micro/golib/protoc/server_one"
 	"go-micro/server_one/dao"
 	"go-micro/server_one/model"
 )
 
-func GetUser(ctx context.Context, req *pbuser.UserName, resp *pbuser.User) error {
+func GetUser(ctx context.Context, req *pbserverone.GetUserByUserNameReq, resp *pbserverone.GetUserByUserNameResp) error {
+	fmt.Println(1111111333333333)
 	userM := &model.User{}
 	userM.Name = req.Name
 	userMSli, err := dao.GetUser(*userM)

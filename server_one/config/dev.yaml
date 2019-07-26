@@ -20,14 +20,6 @@ db:
 
 
 micro:
-  service_name: "rpc_server_demo"
   etcd_addrs:
-    - "127.0.0.1:12379"
-  service_version:
-  service_addr:
-  transport:
-  selector:
-  consul_addrs:
-  k8s_addrs:
-  nats_addrs:
+    - "127.0.0.1:2379"
 

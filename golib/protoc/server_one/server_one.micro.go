@@ -31,32 +31,32 @@ var _ context.Context
 var _ client.Option
 var _ server.Option
 
-// Client API for UserService service
+// Client API for ServerOneService service
 
-type UserService interface {
+type ServerOneService interface {
 	GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, opts ...client.CallOption) (*GetUserByUserNameResp, error)
 }
 
-type userService struct {
+type serverOneService struct {
 	c    client.Client
 	name string
 }
 
-func NewUserService(name string, c client.Client) UserService {
+func NewServerOneService(name string, c client.Client) ServerOneService {
 	if c == nil {
 		c = client.NewClient()
 	}
 	if len(name) == 0 {
 		name = "pbserverone"
 	}
-	return &userService{
+	return &serverOneService{
 		c:    c,
 		name: name,
 	}
 }
 
-func (c *userService) GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, opts ...client.CallOption) (*GetUserByUserNameResp, error) {
-	req := c.c.NewRequest(c.name, "UserService.GetUserByUserName", in)
+func (c *serverOneService) GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, opts ...client.CallOption) (*GetUserByUserNameResp, error) {
+	req := c.c.NewRequest(c.name, "ServerOneService.GetUserByUserName", in)
 	out := new(GetUserByUserNameResp)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -65,27 +65,27 @@ func (c *userService) GetUserByUserName(ctx context.Context, in *GetUserByUserNa
 	return out, nil
 }
 
-// Server API for UserService service
+// Server API for ServerOneService service
 
-type UserServiceHandler interface {
+type ServerOneServiceHandler interface {
 	GetUserByUserName(context.Context, *GetUserByUserNameReq, *GetUserByUserNameResp) error
 }
 
-func RegisterUserServiceHandler(s server.Server, hdlr UserServiceHandler, opts ...server.HandlerOption) error {
-	type userService interface {
+func RegisterServerOneServiceHandler(s server.Server, hdlr ServerOneServiceHandler, opts ...server.HandlerOption) error {
+	type serverOneService interface {
 		GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, out *GetUserByUserNameResp) error
 	}
-	type UserService struct {
-		userService
+	type ServerOneService struct {
+		serverOneService
 	}
-	h := &userServiceHandler{hdlr}
-	return s.Handle(s.NewHandler(&UserService{h}, opts...))
+	h := &serverOneServiceHandler{hdlr}
+	return s.Handle(s.NewHandler(&ServerOneService{h}, opts...))
 }
 
-type userServiceHandler struct {
-	UserServiceHandler
+type serverOneServiceHandler struct {
+	ServerOneServiceHandler
 }
 
-func (h *userServiceHandler) GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, out *GetUserByUserNameResp) error {
-	return h.UserServiceHandler.GetUserByUserName(ctx, in, out)
+func (h *serverOneServiceHandler) GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, out *GetUserByUserNameResp) error {
+	return h.ServerOneServiceHandler.GetUserByUserName(ctx, in, out)
 }

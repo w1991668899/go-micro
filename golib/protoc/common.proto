@@ -1,0 +1,16 @@
+syntax ="proto3";
+
+package pbcommon;
+
+message Empty{
+}
+
+message Response{
+    int64 code = 1;
+    string message = 2;
+}
+
+message Token{
+    string token = 1;
+}
+

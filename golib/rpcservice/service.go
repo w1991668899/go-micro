@@ -23,6 +23,7 @@ import (
 	"github.com/micro/go-plugins/transport/utp"
 	"github.com/micro/go-plugins/wrapper/monitoring/prometheus"
 	"go-micro/golib/lib/lib_config"
+	"go-micro/golib/lib/lib_middleware/opentracing"
 	"log"
 	"os"
 	"time"
@@ -52,16 +53,16 @@ func newService(serviceConf lib_config.ConfMicroRpcService, opts ...micro.Option
 	clientOptions = append(clientOptions, client.PoolTTL(time.Duration(60)*time.Second))
 	clientOptions = append(clientOptions, client.Retries(2))
 	//clientOptions = append(clientOptions, client.Wrap(hystrix.NewClientWrapper()))
-	//clientOptions = append(clientOptions, client.Wrap(clientRequestLogWrap))
-	//clientOptions = append(clientOptions, client.WrapCall(opentracing.NewCallWrapper(opentracing.GetTracer())))
+	clientOptions = append(clientOptions, client.Wrap(clientRequestLogWrap))
+	clientOptions = append(clientOptions, client.WrapCall(opentracing.NewCallWrapper(opentracing.GetTracer())))
 
 	// set server parameter
 	var serverOptions []server.Option
 	serverOptions = append(serverOptions, server.Name(serviceConf.ServiceName))
 	serverOptions = append(serverOptions, server.Version(serviceConf.ServiceVersion))
 	serverOptions = append(serverOptions, server.Address(serviceConf.ServiceAddr))
-	//serverOptions = append(serverOptions, server.WrapHandler(serverReceiveReqLogWrapper))
-	//serverOptions = append(serverOptions, server.WrapHandler(opentracing.NewHandlerWrapper(opentracing.GetTracer())))
+	serverOptions = append(serverOptions, server.WrapHandler(serverReceiveReqLogWrapper))
+	serverOptions = append(serverOptions, server.WrapHandler(opentracing.NewHandlerWrapper(opentracing.GetTracer())))
 
 	flags := make([]cli.Flag, 0)
 	flag.Visit(func(i *flag.Flag) {

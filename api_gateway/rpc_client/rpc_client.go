@@ -2,21 +2,19 @@ package rpc_client
 
 import (
 	"go-micro/golib/lib/lib_config"
-	pbuser "go-micro/golib/protoc/server_one"
+	pbserverone "go-micro/golib/protoc/server_one"
 	"go-micro/golib/rpcservice"
 )
 
 var(
-	ServerOneClient *pbuser.UserService
+	ServerOneClient pbserverone.ServerOneService
 )
 
-func InitClient(config lib_config.ConfMicroRpcService)  {
-	if config.ServiceName == "" {
-		config.ServiceName = rpcservice.ApiGatewayService
+func InitClient(configMicro lib_config.ConfMicroRpcService)  {
+	if configMicro.ServiceName == "" {
+		configMicro.ServiceName = rpcservice.ApiGatewayService
 	}
-	service := rpcservice.CreateService(config)
+	service := rpcservice.CreateService(configMicro)
 
-	//ServerOneClient = pblogin.NewLoginService(rpcservice.LoginService, service.Client())
-
-	ServerOneClient = pbuser.GetUserByUserNameReq{}
+	ServerOneClient = pbserverone.NewServerOneService(rpcservice.ServerOneService, service.Client())
 }

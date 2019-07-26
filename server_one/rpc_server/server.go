@@ -8,7 +8,7 @@ import (
 
 func Start(microConf lib_config.ConfMicroRpcService)  {
 	if microConf.ServiceName == "" {
-		log.Fatalln("service name can not be null")
+		microConf.ServiceName = rpcservice.ServerOneService
 	}
 	service := rpcservice.CreateService(microConf)
 	if err := service.Run(); err != nil{
