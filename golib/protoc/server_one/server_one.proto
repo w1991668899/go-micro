@@ -3,7 +3,7 @@ syntax="proto3";
 package pbserverone;
 
 service ServerOneService{
-    rpc GetUserByUserName(GetUserByUserNameReq) returns(GetUserByUserNameResp);
+    rpc GetUser(GetUserByUserNameReq) returns(GetUserByUserNameResp);
 }
 
 message GetUserByUserNameReq{

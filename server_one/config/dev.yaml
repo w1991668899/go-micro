@@ -1,9 +1,9 @@
 log:
-  level: 5
-  output:
-  path:
+  level: 1
+  output: "file"
+  path: "/Users/wt/github/src/go_micro/server_one/"
   sentry_dsn:
-  extra_content:
+  extra_content: "sdfsf"
 
 db:
   db_name: "yibai"
@@ -21,5 +21,5 @@ db:
 
 micro:
   etcd_addrs:
-    - "127.0.0.1:2379"
+    - "127.0.0.1:12379"
 

@@ -7,6 +7,7 @@ import (
 	"github.com/prometheus/common/log"
 	"go-micro/golib/lib/lib_config"
 	"go-micro/golib/lib/lib_log"
+	"go-micro/golib/lib/lib_middleware/opentracing"
 	"time"
 )
 
@@ -32,11 +33,12 @@ func CreateDb(configDb lib_config.ConfMysql) *gorm.DB {
 		log.Fatalln("mysql connect fail: ", err)
 	}
 
-
 	db.LogMode(configDb.EnableLog)
 	if configDb.EnableLog && configDb.LogType == "logrus" {
 		db.SetLogger(&lib_log.GormLogger{})
 	}
+
+	db.SingularTable(true)
 
 	if configDb.MaxIdle <= 0 || configDb.MaxConn <= 0{
 		log.Fatalln("mysql maxidle or maxconn is fail")
@@ -50,7 +52,7 @@ func CreateDb(configDb lib_config.ConfMysql) *gorm.DB {
 		db.AutoMigrate()
 	}
 
-	//opentracing.SetGORMCallbacks(db)
+	opentracing.SetGORMCallbacks(db)
 
 	return db
 }

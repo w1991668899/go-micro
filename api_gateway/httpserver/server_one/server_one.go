@@ -10,7 +10,6 @@ import (
 func HttpGetUser(ctx echo.Context) (interface{}, error) {
 	req := &pbserverone.GetUserByUserNameReq{}
 	req.Name = ctx.Param("name")
-
 	context := opentracing.ContextFromEcho(ctx)
 	return server_one.GetUser(context, req)
 }

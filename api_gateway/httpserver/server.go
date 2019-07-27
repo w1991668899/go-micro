@@ -1,7 +1,6 @@
 package httpserver
 
 import (
-	"fmt"
 	"github.com/labstack/echo"
 	"go-micro/api_gateway/httpserver/server_one"
 	"go-micro/golib/lib/lib_config"
@@ -9,7 +8,7 @@ import (
 
 func StartHttpServer(httpConfig lib_config.ConfHttp)  {
 	e := echo.New()
-		fmt.Println(1111111111111)
+
 	//e.Use()
 
 	apiGroup := e.Group("/api/v1")

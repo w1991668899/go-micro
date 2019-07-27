@@ -3,7 +3,7 @@ package common
 import "go-micro/golib/lib/lib_config"
 
 type Config struct {
-	Log   lib_config.ConfLog             `yaml:"tool_log"`
+	Log   lib_config.ConfLog             `yaml:"log"`
 	DB    lib_config.ConfMysql           `yaml:"db"`
 	Redis lib_config.ConfRedis           `yaml:"redis"`
 	Micro lib_config.ConfMicroRpcService `yaml:"micro"`

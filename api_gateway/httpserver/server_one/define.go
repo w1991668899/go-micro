@@ -6,6 +6,6 @@ import (
 )
 
 func MountUserApi(g *echo.Group) {
-	userGroup := g.Group("/user")
-	userGroup.GET("/name", tool_http.EchoResponseWrapper(HttpGetUser))
+	userGroup := g.Group("/server_one")
+	userGroup.GET("/user/:name", tool_http.EchoResponseWrapper(HttpGetUser))
 }

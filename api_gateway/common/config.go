@@ -8,7 +8,7 @@ import (
 
 var (
     GloConf *config
-	Logger *logrus.Logger
+    Logger *logrus.Logger
 )
 
 func InitConfig(configFilePath... string)  {

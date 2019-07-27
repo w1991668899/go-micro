@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"go-micro/server_one/common"
-	"go-micro/server_one/rpc_server"
 	"go-micro/server_one/model"
+	"go-micro/server_one/rpc_server"
 )
 
 func main()  {
@@ -12,9 +12,6 @@ func main()  {
 	flag.Parse()
 
 	common.InitConfig(*configPath)
-
 	model.InitModel(common.GloConf.DB)
-
-
 	rpc_server.Start(common.GloConf.Micro)
 }

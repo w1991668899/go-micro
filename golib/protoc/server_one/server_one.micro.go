@@ -34,7 +34,7 @@ var _ server.Option
 // Client API for ServerOneService service
 
 type ServerOneService interface {
-	GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, opts ...client.CallOption) (*GetUserByUserNameResp, error)
+	GetUser(ctx context.Context, in *GetUserByUserNameReq, opts ...client.CallOption) (*GetUserByUserNameResp, error)
 }
 
 type serverOneService struct {
@@ -55,8 +55,8 @@ func NewServerOneService(name string, c client.Client) ServerOneService {
 	}
 }
 
-func (c *serverOneService) GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, opts ...client.CallOption) (*GetUserByUserNameResp, error) {
-	req := c.c.NewRequest(c.name, "ServerOneService.GetUserByUserName", in)
+func (c *serverOneService) GetUser(ctx context.Context, in *GetUserByUserNameReq, opts ...client.CallOption) (*GetUserByUserNameResp, error) {
+	req := c.c.NewRequest(c.name, "ServerOneService.GetUser", in)
 	out := new(GetUserByUserNameResp)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -68,12 +68,12 @@ func (c *serverOneService) GetUserByUserName(ctx context.Context, in *GetUserByU
 // Server API for ServerOneService service
 
 type ServerOneServiceHandler interface {
-	GetUserByUserName(context.Context, *GetUserByUserNameReq, *GetUserByUserNameResp) error
+	GetUser(context.Context, *GetUserByUserNameReq, *GetUserByUserNameResp) error
 }
 
 func RegisterServerOneServiceHandler(s server.Server, hdlr ServerOneServiceHandler, opts ...server.HandlerOption) error {
 	type serverOneService interface {
-		GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, out *GetUserByUserNameResp) error
+		GetUser(ctx context.Context, in *GetUserByUserNameReq, out *GetUserByUserNameResp) error
 	}
 	type ServerOneService struct {
 		serverOneService
@@ -86,6 +86,6 @@ type serverOneServiceHandler struct {
 	ServerOneServiceHandler
 }
 
-func (h *serverOneServiceHandler) GetUserByUserName(ctx context.Context, in *GetUserByUserNameReq, out *GetUserByUserNameResp) error {
-	return h.ServerOneServiceHandler.GetUserByUserName(ctx, in, out)
+func (h *serverOneServiceHandler) GetUser(ctx context.Context, in *GetUserByUserNameReq, out *GetUserByUserNameResp) error {
+	return h.ServerOneServiceHandler.GetUser(ctx, in, out)
 }

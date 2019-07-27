@@ -6,7 +6,7 @@ import (
 
 type User struct {
 	lib_orm.BaseModel
-	Name string	`json:"name"`
-	Age int	`json:"age"`
+	Name string
+	Age int
 	lib_orm.TimeModel
 }

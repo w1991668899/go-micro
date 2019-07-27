@@ -1,18 +1,18 @@
 log:
   level: 5
-  output:
+  output: "file"
   path:
-  sentry_dsn:
+  sentry_dsn: "/Users/wt/github/src/go_micro/api_gateway/"
   extra_content:
 
 http:
-  host: "127.0.0.1:9991"
+  host: "127.0.0.1:8080"
   rate_per_second: 2000
   time_out: 20
 
 micro:
   etcd_addrs:
-    - "127.0.0.1:2379"
+    - "127.0.0.1:12379"
 
 open_tracing:
   disable: false

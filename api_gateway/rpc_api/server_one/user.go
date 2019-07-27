@@ -12,5 +12,5 @@ func GetUser(ctx context.Context, req *pbserverone.GetUserByUserNameReq) (interf
 		fmt.Println(req.Name, 5555555)
 	}
 
-	return rpc_client.ServerOneClient.GetUserByUserName(ctx, req)
+	return rpc_client.ServerOneClient.GetUser(ctx, req)
 }
