@@ -54,6 +54,14 @@ type ConfHttp struct {
 	Timeout       int64  `yaml:"time_out"`
 }
 
+// Prometheus配置
+type ConfPrometheus struct {
+	Disable     bool   `yaml:"disable"`
+	Namespace   string `yaml:"namespace"`
+	Subsystem   string `yaml:"subsystem"`
+	MetricsPath string `yaml:"metrics_path"`
+}
+
 //// redis cluster 配置
 //type ConfClusterRedis struct {
 //	Addrs              []string `yaml:"addrs"`
@@ -107,10 +115,4 @@ type ConfHttp struct {
 //	MarketWsAddress string `yaml:"market_ws_address"`
 //}
 //
-//// Prometheus配置
-//type ConfPrometheus struct {
-//	Disable     bool   `yaml:"disable"`
-//	Namespace   string `yaml:"namespace"`
-//	Subsystem   string `yaml:"subsystem"`
-//	MetricsPath string `yaml:"metrics_path"`
-//}
+

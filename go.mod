@@ -7,6 +7,7 @@ require (
 	github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4 // indirect
 	github.com/coreos/etcd v3.3.13+incompatible
 	github.com/denisenkom/go-mssqldb v0.0.0-20190724012636-11b2859924c1 // indirect
+	github.com/go-playground/validator v9.29.1+incompatible // indirect
 	github.com/go-redis/redis v6.15.3+incompatible
 	github.com/golang/protobuf v1.3.2
 	github.com/jinzhu/configor v1.1.0
@@ -22,6 +23,7 @@ require (
 	github.com/miekg/dns v1.1.15 // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.0.2
 	github.com/opentracing/opentracing-go v1.1.0
+	github.com/prometheus/client_golang v1.0.0
 	github.com/prometheus/common v0.6.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/uber/jaeger-client-go v2.15.0+incompatible

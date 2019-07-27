@@ -11,11 +11,12 @@ import (
 	"time"
 )
 
+
+var logger *logrus.Logger
+
 const (
 	TagTopic    = "topic"
-	TagEvent    = "event"
 	TagCategory = "category"
-	TagKey      = "key"
 
 	TopicCodeTrade = "code_trace"
 	TopicBugReport = "bug_report"
@@ -24,14 +25,14 @@ const (
 )
 
 func InitLog(conf lib_config.ConfLog)*logrus.Logger {
-	logger := logrus.New()
+	logger = logrus.New()
 	ip := tool_net.LocalIPAddr()
 	switch {
 	case conf.Output == "file" && conf.Path != "":
 		logFile := redirect(logName(conf.Path, ip, time.Now(), conf.ExtraContent))
 		logger.Out = logFile
+		logger.SetLevel(logrus.Level(conf.Level))
 		logger.SetFormatter(&logrus.JSONFormatter{})
-		//logger.SetLevel(logrus.Level(conf.Level))
 	default:
 		logger.Out = os.Stdout
 	}
