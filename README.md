@@ -11,6 +11,11 @@
  - jwt 
  - OpenTracing 分布式链路追踪
  - cron 定时器
+ - i18n 国际化
+ - protobuf 
+ - gorm
+ - redis
+ - yaml
 
 
 ## 这里基于个人的理解对微服务做的一些总结
