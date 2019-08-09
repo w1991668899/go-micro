@@ -25,3 +25,12 @@ metrics:
   subsystem: apigateway
   metrics_path: "/metrics"
 
+cors:
+  allow_origins:
+    - "*"
+  allow_methods:
+    - GET
+    - PUT
+    - POST
+  allow_headers:
+    - "*"

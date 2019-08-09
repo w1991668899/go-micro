@@ -1,12 +1,12 @@
 package model
 
 import (
-	"go-micro/golib/lib/lib_orm"
+	"go-micro/golib/lib/lib_gorm"
 )
 
 type User struct {
-	lib_orm.BaseModel
+	lib_gorm.BaseModel
 	Name string
 	Age int
-	lib_orm.TimeModel
+	lib_gorm.TimeModel
 }

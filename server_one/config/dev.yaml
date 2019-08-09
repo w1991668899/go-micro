@@ -3,7 +3,7 @@ log:
   output: "file"
   path: "/Users/wt/github/src/go_micro/server_one/"
   sentry_dsn:
-  extra_content: "sdfsf"
+  extra_content:
 
 db:
   db_name: "yibai"
@@ -11,8 +11,8 @@ db:
   password: "wentao"
   host: "127.0.0.1"
   port: 3306
-  max_idle: 100
-  max_conn: 1000
+  max_idle: 10000
+  max_conn: 20000
   max_life_time: 30
   auto_migrate: false
   enable_log: true

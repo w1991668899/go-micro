@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"github.com/labstack/echo"
 	"github.com/sirupsen/logrus"
-	"go-micro/golib/lib/lib_log"
+	"go-micro/api_gateway/common"
 	"io"
 	"io/ioutil"
 )
@@ -18,13 +18,17 @@ func Log() echo.MiddlewareFunc {
 			var b bytes.Buffer
 			_, err = io.Copy(&b, req.Body)
 			if err != nil {
-				lib_log.LogErrorLn(err)
+				common.LibLog.LogPanic(logrus.Fields{
+					"err": err,
+				}, "")
 			}
 			rr, err := ioutil.ReadAll(&b)
 			if err != nil {
-				lib_log.LogErrorLn(err)
+				common.LibLog.LogPanic(logrus.Fields{
+					"err": err,
+				}, "")
 			} else {
-				lib_log.LogInfo(logrus.Fields{
+				common.LibLog.LogInfo(logrus.Fields{
 					"method": req.Method,
 					"body":   string(rr),
 				}, "request from client")

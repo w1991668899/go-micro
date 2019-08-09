@@ -13,5 +13,6 @@ func main()  {
 
 	common.InitConfig(*configPath)
 	model.InitModel(common.GloConf.DB)
+
 	rpc_server.Start(common.GloConf.Micro)
 }

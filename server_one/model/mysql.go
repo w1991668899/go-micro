@@ -4,13 +4,13 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/prometheus/common/log"
 	"go-micro/golib/lib/lib_config"
-	"go-micro/golib/lib/lib_orm"
+	"go-micro/golib/lib/lib_gorm"
 )
 
 var Db *gorm.DB
 
 func InitModel(configDb lib_config.ConfMysql)  {
-	Db = lib_orm.CreateDb(configDb)
+	Db = lib_gorm.CreateDb(configDb)
 }
 
 func CloseDb()  {

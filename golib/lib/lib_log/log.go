@@ -7,12 +7,10 @@ import (
 	"go-micro/golib/toolkit/tool_net"
 	"log"
 	"os"
+	"runtime"
 	"strings"
 	"time"
 )
-
-
-var logger *logrus.Logger
 
 const (
 	TagTopic    = "topic"
@@ -22,19 +20,28 @@ const (
 	TopicBugReport = "bug_report"
 	TopicDebug     = "debug"
 	TopicCrash     = "crash"
+
+	CodeFile       = "code_file"
+
+	OutPut = "file"
 )
 
-func InitLog(conf lib_config.ConfLog)*logrus.Logger {
-	logger = logrus.New()
+type LibLog struct {
+	Logger *logrus.Logger
+}
+
+func InitLog(conf lib_config.ConfLog)*LibLog {
+	logger := &LibLog{}
+	logger.Logger = logrus.New()
 	ip := tool_net.LocalIPAddr()
 	switch {
-	case conf.Output == "file" && conf.Path != "":
+	case conf.Output == OutPut && conf.Path != "":
 		logFile := redirect(logName(conf.Path, ip, time.Now(), conf.ExtraContent))
-		logger.Out = logFile
-		logger.SetLevel(logrus.Level(conf.Level))
-		logger.SetFormatter(&logrus.JSONFormatter{})
+		logger.Logger.Out = logFile
+		//logger.Logger.ReportCaller = true
+		logger.Logger.SetFormatter(&logrus.JSONFormatter{})
 	default:
-		logger.Out = os.Stdout
+		logger.Logger.Out = os.Stdout
 	}
 	return logger
 }
@@ -61,88 +68,50 @@ func redirect(fullPath string)*os.File{
 	//syscall.Dup2(int(file.Fd()), int(os.Stdout.Fd()))
 }
 
-func LogInfo(fields logrus.Fields, message string) {
-	logrus.WithFields(logrus.Fields{
+func PrintCaller(pcNum int, stop int) string {
+	pc := make([]uintptr, pcNum) // at least 1 entry needed
+	n := runtime.Callers(0, pc)
+	for i := 0; i < n; i++ {
+		if i == stop{
+			f := runtime.FuncForPC(pc[i])
+			file, line := f.FileLine(pc[i])
+			return fmt.Sprintf("file name: %s, code line: %d, func name: %s", file, line, f.Name())
+		}
+	}
+	return ""
+}
+
+func (log *LibLog) LogInfo(fields logrus.Fields, message string) {
+	log.Logger.WithFields(logrus.Fields{
 		TagTopic: TopicCodeTrade,
+		CodeFile: PrintCaller(4, 3),
 	}).WithFields(fields).Info(message)
 }
 
-func LogWarn(fields logrus.Fields, message string) {
-	logrus.WithFields(logrus.Fields{
+func (log *LibLog) LogWarn(fields logrus.Fields, message string) {
+	log.Logger.WithFields(logrus.Fields{
 		TagTopic: TopicCodeTrade,
+		CodeFile: PrintCaller(4, 3),
 	}).WithFields(fields).Warn(message)
 }
 
-func LogError(fields logrus.Fields, message string) {
-	logrus.WithFields(logrus.Fields{
+func (log *LibLog) LogError(fields logrus.Fields, message string) {
+	log.Logger.WithFields(logrus.Fields{
 		TagTopic: TopicBugReport,
+		CodeFile: PrintCaller(4, 3),
 	}).WithFields(fields).Error(message)
 }
 
-func LogPanic(fields logrus.Fields, message string) {
-	logrus.WithFields(logrus.Fields{
+func (log *LibLog) LogPanic(fields logrus.Fields, message string) {
+	log.Logger.WithFields(logrus.Fields{
 		TagTopic: TopicBugReport,
+		CodeFile: PrintCaller(4, 3),
 	}).WithFields(fields).Panic(message)
 }
 
-func LogInfoC(category string, message string) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic:    TopicCodeTrade,
-		TagCategory: category,
-	}).Info(message)
-}
-
-func LogErrorC(category string, message string) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic:    TopicBugReport,
-		TagCategory: category,
-	}).Error(message)
-}
-
-func LogDebug(fields logrus.Fields, message string) {
-	logrus.WithFields(logrus.Fields{
+func (log *LibLog) LogDebug(fields logrus.Fields, message string) {
+	log.Logger.WithFields(logrus.Fields{
 		TagTopic: TopicDebug,
+		CodeFile: PrintCaller(4, 3),
 	}).WithFields(fields).Debug(message)
-}
-func LogDebugC(category string, message string) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic:    TopicDebug,
-		TagCategory: category,
-	}).Debug(message)
-}
-
-func LogDebugLn(args ...interface{}) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic: TopicDebug,
-	}).Debugln(args)
-}
-
-func LogInfoLn(args ...interface{}) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic: TopicCodeTrade,
-	}).Infoln(args)
-}
-
-func LogWarnLn(args ...interface{}) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic: TopicBugReport,
-	}).Warnln(args)
-}
-
-func LogErrorLn(args ...interface{}) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic: TopicBugReport,
-	}).Errorln(args)
-}
-
-func LogFatalLn(args ...interface{}) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic: TopicCrash,
-	}).Fatalln(args)
-}
-
-func LogPanicLn(args ...interface{}) {
-	logrus.WithFields(logrus.Fields{
-		TagTopic: TopicCrash,
-	}).Panicln(args)
 }

@@ -14,13 +14,14 @@ func GetUser(ctx context.Context, req *pbserverone.GetUserByUserNameReq, resp *p
 	userM.Name = req.Name
 	userMSli, err := dao.GetUser(*userM)
 	if err != nil{
-		common.Logger.WithFields(logrus.Fields{
+		common.LibLog.LogError(logrus.Fields{
 			"err":   err,
 			"func":  "GetUser",
 			"param": req,
-		}).Error("获取信息失败")
+		}, "获取信息失败")
 		return err
 	}
+
 	resp.Name = userMSli[0].Name
 	resp.Id = int32(userMSli[0].Id)
 	resp.Age = int32(userMSli[0].Age)
