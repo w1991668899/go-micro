@@ -14,6 +14,7 @@ import (
 	"github.com/micro/go-micro/transport"
 	"github.com/micro/go-micro/transport/grpc"
 	"github.com/micro/go-micro/transport/http"
+	"github.com/micro/go-plugins/broker/kafka"
 	"github.com/micro/go-plugins/client/selector/label"
 	"github.com/micro/go-plugins/registry/etcdv3"
 	"github.com/micro/go-plugins/registry/kubernetes"
@@ -43,13 +44,13 @@ func newService(serviceConf lib_config.ConfMicroRpcService, opts ...micro.Option
 
 	// set broker, http broker default
 	// TODO
-
+	kafka.NewBroker()
 	// set client parameter
 	var clientOptions []client.Option
 	s := getSelector(register, serviceConf.Selector)
 	clientOptions = append(clientOptions, client.Selector(s))
 	clientOptions = append(clientOptions, client.RequestTimeout(30*time.Second))
-	clientOptions = append(clientOptions, client.PoolSize(20)) //先写死吧
+	clientOptions = append(clientOptions, client.PoolSize(20000)) //先写死吧
 	clientOptions = append(clientOptions, client.PoolTTL(time.Duration(60)*time.Second))
 	clientOptions = append(clientOptions, client.Retries(2))
 	//clientOptions = append(clientOptions, client.Wrap(hystrix.NewClientWrapper()))
@@ -90,8 +91,6 @@ func newService(serviceConf lib_config.ConfMicroRpcService, opts ...micro.Option
 	options = append(options, opts...)
 	return micro.NewService(options...)
 }
-
-
 
 func getRegistry(serviceConf lib_config.ConfMicroRpcService) registry.Registry {
 	var register registry.Registry

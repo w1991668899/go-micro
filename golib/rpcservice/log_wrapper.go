@@ -5,7 +5,6 @@ import (
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/server"
 	"github.com/sirupsen/logrus"
-	"go-micro/golib/lib/lib_log"
 	"log"
 )
 
@@ -31,23 +30,22 @@ type logWrapper struct {
 }
 
 func (l *logWrapper) Call(ctx context.Context, req client.Request, rsp interface{}, opts ...client.CallOption) error {
-	lib_log.LogDebug(logrus.Fields{
+	logrus.WithFields(logrus.Fields{
 		"service":     req.Service(),
 		"endpoint":    req.Endpoint(),
 		"contentType": req.ContentType(),
-	}, "client request, before calling")
+	})
 
 	err := l.Client.Call(ctx, req, rsp)
 	if err != nil {
-		lib_log.LogError(logrus.Fields{
+		logrus.WithFields(logrus.Fields{
 			"service":     req.Service(),
 			"endpoint":    req.Endpoint(),
 			"contentType": req.ContentType(),
 			"req_body":    req.Body(),
 			"err":         err,
-		}, "client request, call err")
+		})
 	}
-
 	return err
 }
 

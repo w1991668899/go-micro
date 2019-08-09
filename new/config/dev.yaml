@@ -1,0 +1,36 @@
+log:
+  level: 1
+  output: "file"
+  path: "/Users/wt/github/go-micro/server-one/"
+  sentry_dsn:
+  extra_content:
+
+db:
+  db_name: "user"
+  username: "root"
+  password: "123456"
+  host: "127.0.0.1"
+  port: 3306
+  max_idle: 10000
+  max_conn: 20000
+  max_life_time: 30
+  auto_migrate: false
+  enable_log: true
+  log_type:
+
+mongo_db:
+  username: "root"
+  password: ""
+  host: "127.0.0.1"
+  port: 3717
+  max_idle: 10
+  max_conn: 200
+  max_conn_idle_time: 30
+
+micro:
+  etcd_addrs:
+    - "127.0.0.1:2379"
+#  consul_addrs:
+#    - "127.0.0.1:8500"
+
+

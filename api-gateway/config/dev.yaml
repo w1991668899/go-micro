@@ -1,0 +1,42 @@
+log:
+  level: 5
+  output: "file"
+  path:
+  sentry_dsn: "/Users/wt/github/src/go-micro/api_gateway/"
+  extra_content:
+
+http:
+  host: "127.0.0.1:8090"
+  rate_per_second: 2000
+  time_out: 20
+
+redis:
+  host: "192.168.3.11"
+  port: 16380
+  auth:
+  db: 0
+
+micro:
+  etcd_addrs:
+    - "127.0.0.1:12379"
+
+open_tracing:
+  disable: false
+  service_name: "api_gateway"
+  agent_addr: "127.0.0.1:6831"
+
+metrics:
+  diable: false
+  namespace: wbfex
+  subsystem: apigateway
+  metrics_path: "/metrics"
+
+cors:
+  allow_origins:
+    - "*"
+  allow_methods:
+    - GET
+    - PUT
+    - POST
+  allow_headers:
+    - "*"

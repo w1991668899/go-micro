@@ -1,0 +1,20 @@
+db:
+  db_name: "yibai"
+  username: "root"
+  password: "wentao"
+  host: "127.0.0.1"
+  port: 3306
+  enable_log: true
+  auto_migrate: false
+
+micro:
+  service_name: "rpc_server_demo"
+  etcd_addrs:
+    - "127.0.0.1:12379"
+  service_version:
+  service_addr:
+  transport:
+  selector:
+  consul_addrs:
+  k8s_addrs:
+  nats_addrs:

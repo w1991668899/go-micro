@@ -1,7 +1,7 @@
 # 基于go-micro go微服务架构最佳实践
 
 本框架组件
- - api-gateway http网关转grpc请求
+ - api-gateway http请求转grpc请求
  - echo 框架
  - go-micro 微服务框架
  - etcd 注册中心

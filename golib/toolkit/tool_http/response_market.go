@@ -2,6 +2,7 @@ package tool_http
 
 import (
 	"encoding/json"
+	"github.com/sirupsen/logrus"
 	"go-micro/golib/lib/lib_log"
 	"net/http"
 	"sync"
@@ -88,7 +89,7 @@ func GenHttpMarketSuccessResponse(topic string, data []byte) []byte {
 	}
 	resData, err := json.Marshal(resp)
 	if err != nil {
-		lib_log.LogErrorLn(err)
+		logrus.Errorln(err)
 	}
 	return resData
 }
